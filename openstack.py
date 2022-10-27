@@ -37,7 +37,7 @@ def savetodb(lines):
     try:
         for l in lines:
             with con.cursor() as cur:
-                sql = "INSERT INTO `log` (`time`, `len`,`status`, `page`, `method`, `protocol`, `log`, `ip`) " \
+                sql = "INSERT INTO `openstack_log` (`time`, `len`,`status`, `page`, `method`, `protocol`, `log`, `ip`) " \
                       "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
                 cur.execute(sql, (float(l['time']), int(l['len']), l['status'], l['page'], l['method'], l['protocol'], l['log'], l['ip']))
                 con.commit()
