@@ -15,7 +15,7 @@ def parser():
 #                           charset='utf8mb4',
 #                           cursorclass=pymysql.cursors.DictCursor)
 
-def parseLog(parser):
+def parseLog(parser, apache_log):
     entries = []
     with open('small_apache.log') as fp:  # doctest: +SKIP
         for entry in parser.parse_lines(fp,  ignore_invalid=True):
@@ -53,6 +53,7 @@ def cleardb(con):
             sql = "DELETE FROM apache_log"
             cur.execute(sql)
             con.commit()
+            print("Apache MySQL log tabel is leeggemaakt")
     except pymysql.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
         return False
