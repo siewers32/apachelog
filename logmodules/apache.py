@@ -6,14 +6,14 @@ import datetime
 def parser():
     return LogParser("%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"")
 
-def conn():
-    return pymysql.connect(host='localhost',
-                          user='root',
-                          password='root',
-                          database='apachelog',
-                          port=8889,
-                          charset='utf8mb4',
-                          cursorclass=pymysql.cursors.DictCursor)
+# def conn():
+#     return pymysql.connect(host='localhost',
+#                           user='root',
+#                           password='',
+#                           database='apachelog',
+#                           port=3306,
+#                           charset='utf8mb4',
+#                           cursorclass=pymysql.cursors.DictCursor)
 
 def parseLog(parser):
     entries = []
@@ -47,7 +47,7 @@ def parseLog(parser):
     return entries
 
 
-def savetodb(con, entries):
+def cleardb(con):
     try:
         with con.cursor() as cur:
             sql = "DELETE FROM apache_log"
@@ -59,6 +59,7 @@ def savetodb(con, entries):
     except:
         print("Log tabel leemaken is mislukt!")
 
+def savetodb(con, entries):
     try:
         for items in entries:
             with con.cursor() as cur:
